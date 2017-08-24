@@ -4,7 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="source"
             type="demo.news.api.android.data.db.entities.Source" />
@@ -14,21 +13,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/small_general_padding">
+        android:padding="@dimen/general_padding">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/small_general_padding"
             android:text="@{source.name}"
-            android:textSize="@dimen/medium_text"
-            app:font_file="@{`fonts/Dosis-Light.ttf`}" />
+            android:textSize="@dimen/large_text"
+            app:font_file="@{`fonts/Dosis-Regular.ttf`}" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{source.description}"
-            android:textSize="@dimen/small_text"
+            android:textSize="@dimen/medium_text"
             app:font_file="@{`fonts/Dosis-Light.ttf`}" />
 
     </LinearLayout>

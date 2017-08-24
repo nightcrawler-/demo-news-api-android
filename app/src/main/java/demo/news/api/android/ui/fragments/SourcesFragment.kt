@@ -60,10 +60,11 @@ class SourcesFragment : LifecycleFragment(), Injectable {
         options.put("category", "technology")
 
         sourceViewModel.list(options).observe(this, Observer {
-            var me = it
-            Log.i(TAG, "fetched sources statu: " + me?.status)
-            Log.i(TAG, "fetched sources size : " + me?.data?.size)
-            Log.i(TAG, "fetched sources size : " + me?.message)
+            Log.i(TAG, "fetched sources statu: " + it?.status)
+            Log.i(TAG, "fetched sources size : " + it?.data?.size)
+            Log.i(TAG, "fetched sources size : " + it?.message)
+
+            binding.resource = it
 
             if (it != null && it.data != null) {
                 sourcesAdapter.sources = it.data

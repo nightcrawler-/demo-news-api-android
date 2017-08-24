@@ -2,6 +2,7 @@ package com.cafrecode.obviator.util
 
 import android.databinding.BindingAdapter
 import android.graphics.Typeface
+import android.view.View
 import android.webkit.WebView
 import android.widget.ImageView
 import android.widget.TextView
@@ -28,6 +29,12 @@ class BindingAdapters {
         fun loadUrl(webView: WebView, url: String) {
             webView.loadUrl(url)
         }
+
+        @JvmStatic @BindingAdapter("visibleGone")
+        fun showHide(view: View, show: Boolean) {
+            view.setVisibility(if (show) View.VISIBLE else View.GONE)
+        }
+
 
     }
 }

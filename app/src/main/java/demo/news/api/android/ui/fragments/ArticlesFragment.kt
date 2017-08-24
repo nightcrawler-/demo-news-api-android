@@ -68,16 +68,16 @@ class ArticlesFragment : LifecycleFragment(), Injectable {
         options.put("apiKey", getString(R.string.api_key))
 
         articleViewModel.list(options).observe(this, Observer {
-            var me = it
-            Log.i(SourcesFragment.TAG, "fetched articles statu: " + me?.status)
-            Log.i(SourcesFragment.TAG, "fetched articles size : " + me?.data?.size)
-            Log.i(SourcesFragment.TAG, "fetched articles size : " + me?.message)
+            Log.i(SourcesFragment.TAG, "fetched articles statu: " + it?.status)
+            Log.i(SourcesFragment.TAG, "fetched articles size : " + it?.data?.size)
+            Log.i(SourcesFragment.TAG, "fetched articles size : " + it?.message)
+
+            binding.resource = it
 
             if (it != null && it.data != null) {
                 adapter.articles = it.data
                 adapter.notifyDataSetChanged()
             }
-
         })
     }
 
