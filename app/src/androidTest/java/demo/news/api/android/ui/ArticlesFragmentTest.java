@@ -2,12 +2,8 @@ package demo.news.api.android.ui;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.support.test.rule.ActivityTestRule;
-import android.support.test.runner.AndroidJUnit4;
 
 import com.cafrecode.obviator.data.db.entities.Article;
-
-import org.junit.Rule;
-import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +27,8 @@ import static org.mockito.Mockito.when;
  * Created by Frederick on 24/08/2017.
  */
 
-@RunWith(AndroidJUnit4.class)
 public class ArticlesFragmentTest {
 
-    @Rule
     public ActivityTestRule<HomeActivity> activityRule =
             new ActivityTestRule<>(HomeActivity.class, true, true);
     private MutableLiveData<Resource<List<Article>>> articles = new MutableLiveData<>();
