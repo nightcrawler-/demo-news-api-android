@@ -2,6 +2,8 @@
 
 Kotlin based Android App interfacing with the News API.
 
+APK file location: app/release/app-release.apk
+
 ### Prerequisites
 
 Minimum Android SDK Version: 19
