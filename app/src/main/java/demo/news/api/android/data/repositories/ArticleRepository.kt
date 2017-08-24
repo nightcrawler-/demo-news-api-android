@@ -17,7 +17,7 @@ import javax.inject.Singleton
  * Created by Frederick on 24/08/2017.
  */
 @Singleton
-class ArticleRespository {
+class ArticleRepository {
 
     val service: NewsService
     val executors: AppExecutors

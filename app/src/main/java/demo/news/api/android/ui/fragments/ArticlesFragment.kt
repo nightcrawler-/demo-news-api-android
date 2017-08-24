@@ -3,6 +3,7 @@ package demo.news.api.android.ui.fragments
 
 import android.arch.lifecycle.LifecycleFragment
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
@@ -17,7 +18,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.cafrecode.obviator.data.db.entities.Article
 import com.cafrecode.obviator.data.di.Injectable
-import com.cafrecode.obviator.data.di.ViewModelFactory
 import demo.news.api.android.R
 import demo.news.api.android.data.viewmodels.ArticleViewModel
 import demo.news.api.android.databinding.FragmentListBinding
@@ -33,7 +33,7 @@ import javax.inject.Inject
 class ArticlesFragment : LifecycleFragment(), Injectable {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     lateinit var articleViewModel: ArticleViewModel
     lateinit var binding: FragmentListBinding
@@ -137,6 +137,7 @@ class ArticlesFragment : LifecycleFragment(), Injectable {
 
         val TAG: String = ArticlesFragment::class.java.simpleName
 
+        @JvmStatic
         fun newInstance(@Nullable source: String): ArticlesFragment {
             val fragment = ArticlesFragment()
             val args = Bundle()

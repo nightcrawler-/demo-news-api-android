@@ -4,7 +4,7 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
 import com.cafrecode.obviator.data.db.entities.Article
 import demo.news.api.android.data.db.entities.Resource
-import demo.news.api.android.data.repositories.ArticleRespository
+import demo.news.api.android.data.repositories.ArticleRepository
 import javax.inject.Inject
 
 /**
@@ -12,10 +12,10 @@ import javax.inject.Inject
  */
 class ArticleViewModel : ViewModel {
 
-    private val repository: ArticleRespository
+    private val repository: ArticleRepository
 
     @Inject
-    constructor(repository: ArticleRespository) : super() {
+    constructor(repository: ArticleRepository) : super() {
         this.repository = repository
     }
 

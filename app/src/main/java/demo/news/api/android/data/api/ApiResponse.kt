@@ -25,6 +25,7 @@ import java.io.IOException
  * @param <T>
 </T> */
 class ApiResponse<T> {
+
     val code: Int
     val body: T?
     val errorMessage: String?
