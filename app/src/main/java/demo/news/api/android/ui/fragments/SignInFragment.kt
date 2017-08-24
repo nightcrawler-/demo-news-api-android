@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import demo.news.api.android.BuildConfig
 import demo.news.api.android.R
@@ -32,8 +33,12 @@ class SignInFragment : Fragment() {
 
         mAuth = FirebaseAuth.getInstance()
 
-        if (isSubmitReady()) {
-            signIn(binding.email.text.toString(), binding.password.text.toString())
+        binding.button.setOnClickListener {
+            if (isSubmitReady()) {
+                signIn(binding.email.text.toString(), binding.password.text.toString())
+                Toast.makeText(activity, "Signing in...", Toast.LENGTH_SHORT).show()
+                binding.button.isEnabled = false
+            }
         }
         return binding.root
     }
@@ -45,13 +50,13 @@ class SignInFragment : Fragment() {
 
                     if (task.isSuccessful) {
                         val user = task.result.user
-
                         authListner.onSignInSuccessful()
                         if (BuildConfig.DEBUG) {
                             Log.i(SignUpFragment.TAG, "successfully created user")
                         }
                     } else {
-
+                        binding.button.isEnabled = true
+                        Toast.makeText(activity, "Failed :( " +  task.exception?.message, Toast.LENGTH_SHORT).show()
                     }
 
                 })

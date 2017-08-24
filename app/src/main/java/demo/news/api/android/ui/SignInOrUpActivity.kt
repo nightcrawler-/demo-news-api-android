@@ -53,7 +53,7 @@ class SignInOrUpActivity : AppCompatActivity(), AuthListener {
     }
 
     private fun proceed() {
-        var intent = Intent(this, HomeActivity_MembersInjector::class.java)
+        var intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
         finish()
     }

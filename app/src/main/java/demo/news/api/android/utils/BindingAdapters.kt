@@ -40,11 +40,11 @@ class BindingAdapters {
         @JvmStatic @BindingAdapter("app:time")
         fun formatTime(textView: TextView, time: String) {
             //"2017-08-24T16:01:00Z"
-            var pattern = "yyyy-MM-dd'T'HH:mm:ssZ"
+            var pattern = "yyyy-MM-dd'T'HH:mm:ss"
 
             try {
                 val sdf: SimpleDateFormat = SimpleDateFormat(pattern)
-                val parsed = sdf.parse(time)
+                val parsed = sdf.parse(time.replace("Z", ""))
                 textView.text = DateUtils.getRelativeTimeSpanString(textView.context, parsed.time)
             } catch(e: Exception) {
                 e.printStackTrace()
