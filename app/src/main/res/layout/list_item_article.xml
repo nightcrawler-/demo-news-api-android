@@ -34,12 +34,29 @@
                 android:textSize="@dimen/medium_text"
                 app:font_file="@{`fonts/Dosis-Medium.ttf`}" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{article.author}"
-                android:textSize="@dimen/small_text"
-                app:font_file="@{`fonts/Dosis-Light.ttf`}" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="@{article.author}"
+                    android:textSize="@dimen/small_text"
+                    app:font_file="@{`fonts/Dosis-Light.ttf`}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/small_text"
+                    app:font_file="@{`fonts/Dosis-Light.ttf`}"
+                    app:time="@{article.publishedAt}" />
+            </RelativeLayout>
+
+
         </LinearLayout>
     </LinearLayout>
 

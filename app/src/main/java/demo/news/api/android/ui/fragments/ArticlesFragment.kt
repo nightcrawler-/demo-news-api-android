@@ -20,7 +20,10 @@ import com.cafrecode.obviator.data.db.entities.Article
 import com.cafrecode.obviator.data.di.Injectable
 import demo.news.api.android.R
 import demo.news.api.android.data.db.entities.Resource
+import demo.news.api.android.data.db.entities.Source
+import demo.news.api.android.data.db.entities.Status
 import demo.news.api.android.data.viewmodels.ArticleViewModel
+import demo.news.api.android.data.viewmodels.SourceViewModel
 import demo.news.api.android.databinding.FragmentListBinding
 import demo.news.api.android.databinding.ListItemArticleBinding
 import demo.news.api.android.ui.DetailActivity
@@ -37,11 +40,15 @@ class ArticlesFragment : LifecycleFragment(), Injectable {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     lateinit var articleViewModel: ArticleViewModel
+    lateinit var sourceViewModel: SourceViewModel
     lateinit var binding: FragmentListBinding
+    lateinit var mLayoutManager: RecyclerView.LayoutManager
+    lateinit var sources: List<Source>
+
+    var lastLoadedSource: Int = 0
+
 
     private lateinit var adapter: ArticlesAdapter
-
-    lateinit var mLayoutManager: RecyclerView.LayoutManager
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -54,7 +61,6 @@ class ArticlesFragment : LifecycleFragment(), Injectable {
 
         recyclerView.layoutManager = mLayoutManager
         recyclerView.adapter = adapter
-
         return binding.root
     }
 
@@ -62,6 +68,7 @@ class ArticlesFragment : LifecycleFragment(), Injectable {
         super.onActivityCreated(savedInstanceState)
 
         articleViewModel = ViewModelProviders.of(this, viewModelFactory).get(ArticleViewModel::class.java)
+        sourceViewModel = ViewModelProviders.of(this, viewModelFactory).get(SourceViewModel::class.java)
 
         var options: HashMap<String, String> = HashMap<String, String>()
 
@@ -71,16 +78,53 @@ class ArticlesFragment : LifecycleFragment(), Injectable {
         var source = arguments.getString("source")
 
         if (source.equals("*")) {//fetch all
-            options.put("source", "bbc-news")//use a default source to avoid invalid request
-            articleViewModel.loadAllArticles(options).observe(this, Observer {
-                updateUi(it)
+            //only get source view model if all articles are required
+            //paginate at the end and add data from next source
+
+            var options: HashMap<String, String> = HashMap<String, String>()
+            options.put("", "")
+            sourceViewModel.list(options).observe(this, Observer {
+                binding.resource = it
+
+                if (it?.data != null) {
+                    sources = it?.data;
+                    loadSource(0)
+
+                    options.put("source", sources.get(0).id)
+                    options.put("apiKey", getString(R.string.api_key))
+                    articleViewModel.loadAllArticles(options).observe(this, Observer {
+                        updateUi(it)
+                    })
+                }
+
 
             })
+
         } else {
             articleViewModel.list(options).observe(this, Observer {
                 updateUi(it)
             })
         }
+
+    }
+
+    /**
+     * Recusively load all sources -- for the benfit of eeing all articles. Hmm, not very ideal, refine
+     */
+    private fun loadSource(index: Int) {
+        var options: HashMap<String, String> = HashMap<String, String>()
+
+        if (index >= sources.size) {
+            return
+        }
+        options.put("source", sources.get(index).id)
+        options.put("apiKey", getString(R.string.api_key))
+
+        articleViewModel.list(options).observe(this, Observer {
+            if (it?.status == Status.SUCCESS) {
+                loadSource(++lastLoadedSource)
+            }
+        })
 
     }
 
@@ -154,7 +198,7 @@ class ArticlesFragment : LifecycleFragment(), Injectable {
         val TAG: String = ArticlesFragment::class.java.simpleName
 
         @JvmStatic
-        fun newInstance(@Nullable source: String): ArticlesFragment {
+        fun newInstance(@Nullable source: String?): ArticlesFragment {
             val fragment = ArticlesFragment()
             val args = Bundle()
 
