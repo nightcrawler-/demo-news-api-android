@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="source"
+            type="demo.news.api.android.data.db.entities.Source" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/small_general_padding"
+            android:text="@{source.name}"
+            android:textSize="@dimen/medium_text"
+            app:font_file="@{`fonts/Dosis-Light.ttf`}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{source.description}"
+            android:textSize="@dimen/small_text"
+            app:font_file="@{`fonts/Dosis-Light.ttf`}" />
+
+    </LinearLayout>
+
+</layout>
