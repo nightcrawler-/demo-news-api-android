@@ -33,6 +33,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="demo.news.api.android.ui.HomeActivity" />
         </activity>
+        <activity
+            android:name=".ui.ArticlesActivity"
+            android:label="@string/title_activity_articles"
+            android:parentActivityName=".ui.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="demo.news.api.android.ui.HomeActivity" />
+        </activity>
     </application>
 
 </manifest>

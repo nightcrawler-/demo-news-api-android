@@ -23,6 +23,7 @@ import demo.news.api.android.data.viewmodels.ArticleViewModel
 import demo.news.api.android.databinding.FragmentListBinding
 import demo.news.api.android.databinding.ListItemArticleBinding
 import demo.news.api.android.ui.DetailActivity
+import javax.annotation.Nullable
 import javax.inject.Inject
 
 
@@ -63,7 +64,7 @@ class ArticlesFragment : LifecycleFragment(), Injectable {
 
         var options: HashMap<String, String> = HashMap<String, String>()
 
-        options.put("source", "the-next-web")
+        options.put("source", arguments.getString("source"))
         options.put("apiKey", getString(R.string.api_key))
 
         articleViewModel.list(options).observe(this, Observer {
@@ -136,8 +137,13 @@ class ArticlesFragment : LifecycleFragment(), Injectable {
 
         val TAG: String = ArticlesFragment::class.java.simpleName
 
-        fun newInstance(): ArticlesFragment {
+        fun newInstance(@Nullable source: String): ArticlesFragment {
             val fragment = ArticlesFragment()
+            val args = Bundle()
+
+            args.putString("source", source)
+            fragment.arguments = args
+
             return fragment
         }
     }

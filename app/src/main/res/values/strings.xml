@@ -19,5 +19,6 @@
     <string name="api_key">af6786e914f646edb031206626726f4b</string>
 
     <string name="title_activity_detail">Details</string>
+    <string name="title_activity_articles">Articles</string>
 
 </resources>

@@ -3,7 +3,6 @@ package demo.news.api.android.ui
 import android.arch.lifecycle.LifecycleRegistry
 import android.arch.lifecycle.LifecycleRegistryOwner
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import com.cafrecode.obviator.data.di.Injectable
@@ -12,11 +11,10 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import demo.news.api.android.R
 import demo.news.api.android.ui.fragments.ArticlesFragment
-import demo.news.api.android.ui.fragments.SourcesFragment
-import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.activity_articles.*
 import javax.inject.Inject
 
-class HomeActivity : AppCompatActivity(), LifecycleRegistryOwner, HasSupportFragmentInjector, Injectable {
+class ArticlesActivity : AppCompatActivity(), LifecycleRegistryOwner, HasSupportFragmentInjector, Injectable {
 
     val lifecycleRegistry = LifecycleRegistry(this)
 
@@ -32,25 +30,12 @@ class HomeActivity : AppCompatActivity(), LifecycleRegistryOwner, HasSupportFrag
     }
 
 
-    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        when (item.itemId) {
-            R.id.navigation_home -> {
-                replaceFragment(ArticlesFragment.newInstance("bbc-news"), "All Articles")
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_tech -> {
-                replaceFragment(SourcesFragment.newInstance(), "Technology")
-                return@OnNavigationItemSelectedListener true
-            }
-        }
-        false
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-        navigation.selectedItemId = R.id.navigation_home
+        setContentView(R.layout.activity_articles)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        replaceFragment(ArticlesFragment.newInstance(intent.getStringExtra("source")), intent.getStringExtra("source"))
     }
 
     fun replaceFragment(fragment: Fragment, title: String) {
@@ -63,4 +48,5 @@ class HomeActivity : AppCompatActivity(), LifecycleRegistryOwner, HasSupportFrag
         setTitle(title)
 
     }
+
 }
