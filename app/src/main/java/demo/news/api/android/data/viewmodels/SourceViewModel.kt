@@ -22,4 +22,8 @@ class SourceViewModel : ViewModel {
     fun list(options: Map<String, String>): LiveData<Resource<List<Source>>> {
         return repository.loadSources(options)
     }
+
+    fun listFiltered(options: Map<String, String>): LiveData<Resource<List<Source>>> {
+        return repository.listFiltered(options)
+    }
 }

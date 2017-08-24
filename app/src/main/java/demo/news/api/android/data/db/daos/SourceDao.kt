@@ -17,4 +17,7 @@ abstract class SourceDao {
 
     @Query("SELECT * FROM sources")
     abstract fun list(): LiveData<List<Source>>
+
+    @Query("SELECT * FROM sources WHERE category = :category")
+    abstract fun listFiltered(category: String): LiveData<List<Source>>
 }

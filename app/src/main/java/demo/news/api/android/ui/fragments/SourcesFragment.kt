@@ -59,7 +59,7 @@ class SourcesFragment : LifecycleFragment(), Injectable {
 
         options.put("category", "technology")
 
-        sourceViewModel.list(options).observe(this, Observer {
+        sourceViewModel.listFiltered(options).observe(this, Observer {
             Log.i(TAG, "fetched sources statu: " + it?.status)
             Log.i(TAG, "fetched sources size : " + it?.data?.size)
             Log.i(TAG, "fetched sources size : " + it?.message)

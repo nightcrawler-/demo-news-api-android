@@ -86,7 +86,7 @@ class ArticlesFragment : LifecycleFragment(), Injectable {
             sourceViewModel.list(options).observe(this, Observer {
                 binding.resource = it
 
-                if (it?.data != null) {
+                if (it?.data != null && it?.data.isNotEmpty()) {
                     sources = it?.data;
                     loadSource(0)
 
