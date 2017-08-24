@@ -3,6 +3,7 @@ package com.cafrecode.obviator.data.di
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
+import demo.news.api.android.ui.fragments.ArticlesFragment
 import demo.news.api.android.ui.fragments.SourcesFragment
 
 /**
@@ -13,5 +14,8 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     internal abstract fun contributeSourcesFragment(): SourcesFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun contributeArticlesFragment(): ArticlesFragment
 
 }

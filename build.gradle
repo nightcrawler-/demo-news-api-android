@@ -5,6 +5,7 @@ buildscript {
     ext.dagger_version = '2.11'
     ext.mockito_version = '2.7.19'
     ext.retrofit_version = "2.2.0"
+    ext.support_version = '26.0.1'
 
     repositories {
         google()

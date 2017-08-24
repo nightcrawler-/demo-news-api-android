@@ -24,7 +24,7 @@ import android.support.annotation.WorkerThread
 import com.cafrecode.obviator.data.AppExecutors
 
 import demo.news.api.android.data.api.ApiResponse
-import demo.news.api.android.data.api.SourcesResponse
+import demo.news.api.android.data.api.NewsResponse
 import demo.news.api.android.data.db.entities.Resource
 
 
@@ -80,12 +80,12 @@ internal constructor(private val appExecutors: AppExecutors) {
     }
 
     @WorkerThread
-    protected fun processResponse(response: ApiResponse<SourcesResponse>?): SourcesResponse? {
+    protected fun processResponse(response: ApiResponse<NewsResponse>?): NewsResponse? {
         return response?.body
     }
 
     @WorkerThread
-    protected abstract fun saveCallResult(item: SourcesResponse?)
+    protected abstract fun saveCallResult(item: NewsResponse?)
 
     @MainThread
     protected abstract fun shouldFetch(data: ResultType?): Boolean
@@ -94,5 +94,5 @@ internal constructor(private val appExecutors: AppExecutors) {
     protected abstract fun loadFromDb(): LiveData<ResultType>
 
     @MainThread
-    protected abstract fun createCall(): LiveData<ApiResponse<SourcesResponse>>
+    protected abstract fun createCall(): LiveData<ApiResponse<NewsResponse>>
 }

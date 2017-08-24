@@ -13,12 +13,12 @@ interface NewsService {
      * Query Map will have the following: source, apiKey and sortBy
      */
     @GET("articles/")
-    fun listArticles(@QueryMap options: Map<String, String>): LiveData<ApiResponse<SourcesResponse>>
+    fun listArticles(@QueryMap options: Map<String, String>): LiveData<ApiResponse<NewsResponse>>
 
 
     /**
      * Query Map will have the following: category, language and country
      */
     @GET("sources/")
-    fun listSources(@QueryMap options: Map<String, String>): LiveData<ApiResponse<SourcesResponse>>
+    fun listSources(@QueryMap options: Map<String, String>): LiveData<ApiResponse<NewsResponse>>
 }

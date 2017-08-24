@@ -6,8 +6,8 @@ import com.cafrecode.obviator.data.AppExecutors
 import com.cafrecode.obviator.data.db.daos.ArticleDao
 import com.cafrecode.obviator.data.db.entities.Article
 import demo.news.api.android.data.api.ApiResponse
+import demo.news.api.android.data.api.NewsResponse
 import demo.news.api.android.data.api.NewsService
-import demo.news.api.android.data.api.SourcesResponse
 import demo.news.api.android.data.db.entities.Resource
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -33,11 +33,18 @@ class ArticleRespository {
     fun loadArticles(options: Map<String, String>): LiveData<Resource<List<Article>>> {
 
         return object : NetworkBoundResource<List<Article>, List<Article>>(executors) {
-            override fun saveCallResult(item: SourcesResponse?) {
-                articlesDao.insert(item?.articles)
+            override fun saveCallResult(item: NewsResponse?) {
+
+                if (item != null) {
+                    var articles: ArrayList<Article>? = item?.articles
+                    for (article in articles!!) {
+                        article.source = item.source
+                    }
+                    articlesDao.insert(articles)
+                }
             }
 
-            protected override fun shouldFetch(@Nullable data: List<Article>?): Boolean {
+            override fun shouldFetch(@Nullable data: List<Article>?): Boolean {
                 return data == null || data.isEmpty()
             }
 
@@ -45,7 +52,7 @@ class ArticleRespository {
                 return articlesDao.get(options.get("source"))
             }
 
-            override fun createCall(): LiveData<ApiResponse<SourcesResponse>> {
+            override fun createCall(): LiveData<ApiResponse<NewsResponse>> {
                 return service.listArticles(options)
             }
 

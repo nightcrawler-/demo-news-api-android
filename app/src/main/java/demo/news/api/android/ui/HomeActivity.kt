@@ -11,6 +11,7 @@ import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import demo.news.api.android.R
+import demo.news.api.android.ui.fragments.ArticlesFragment
 import demo.news.api.android.ui.fragments.SourcesFragment
 import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject
@@ -34,6 +35,7 @@ class HomeActivity : AppCompatActivity(), LifecycleRegistryOwner, HasSupportFrag
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
+                replaceFragment(ArticlesFragment.newInstance(), "All Articles")
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_tech -> {

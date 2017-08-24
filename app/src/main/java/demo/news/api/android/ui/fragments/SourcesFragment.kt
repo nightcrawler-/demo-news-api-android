@@ -16,7 +16,7 @@ import com.cafrecode.obviator.data.di.ViewModelFactory
 import demo.news.api.android.R
 import demo.news.api.android.data.db.entities.Source
 import demo.news.api.android.data.viewmodels.SourceViewModel
-import demo.news.api.android.databinding.FragmentSourcesBinding
+import demo.news.api.android.databinding.FragmentListBinding
 import demo.news.api.android.databinding.ListItemSourceBinding
 import javax.inject.Inject
 
@@ -27,7 +27,7 @@ class SourcesFragment : LifecycleFragment(), Injectable {
     lateinit var viewModelFactory: ViewModelFactory
 
     lateinit var sourceViewModel: SourceViewModel
-    lateinit var binding: FragmentSourcesBinding
+    lateinit var binding: FragmentListBinding
     lateinit var mLayoutManager: RecyclerView.LayoutManager
 
     private var sourcesAdapter: SourcesAdapter = SourcesAdapter()
@@ -35,7 +35,7 @@ class SourcesFragment : LifecycleFragment(), Injectable {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         mLayoutManager = LinearLayoutManager(getActivity())
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sources, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_list, container, false)
 
         val recyclerView = binding.list
 

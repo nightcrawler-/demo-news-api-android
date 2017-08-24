@@ -5,7 +5,7 @@ import android.support.annotation.Nullable
 import com.cafrecode.obviator.data.AppExecutors
 import demo.news.api.android.data.api.ApiResponse
 import demo.news.api.android.data.api.NewsService
-import demo.news.api.android.data.api.SourcesResponse
+import demo.news.api.android.data.api.NewsResponse
 import demo.news.api.android.data.db.daos.SourceDao
 import demo.news.api.android.data.db.entities.Resource
 import demo.news.api.android.data.db.entities.Source
@@ -33,7 +33,7 @@ class SourceRespository {
     fun loadSources(options: Map<String, String>): LiveData<Resource<List<Source>>> {
 
         return object : NetworkBoundResource<List<Source>, List<Source>>(executors) {
-            override fun saveCallResult(item: SourcesResponse?) {
+            override fun saveCallResult(item: NewsResponse?) {
                 sourceDao.insert(item?.sources)
             }
 
@@ -45,7 +45,7 @@ class SourceRespository {
                 return sourceDao.list()
             }
 
-            override fun createCall(): LiveData<ApiResponse<SourcesResponse>> {
+            override fun createCall(): LiveData<ApiResponse<NewsResponse>> {
                 return service.listSources(options)
             }
 

@@ -11,7 +11,7 @@ import demo.news.api.android.data.db.entities.Source
 /**
  * Created by Frederick on 20/08/2017.
  */
-@Database(entities = arrayOf(Article::class, Source::class), version = 7)
+@Database(entities = arrayOf(Article::class, Source::class), version = 8)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
