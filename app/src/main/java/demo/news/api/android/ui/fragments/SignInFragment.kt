@@ -12,7 +12,7 @@ import android.view.ViewGroup
 import com.google.firebase.auth.FirebaseAuth
 import demo.news.api.android.BuildConfig
 import demo.news.api.android.R
-import demo.news.api.android.databinding.FragmentSignUpBinding
+import demo.news.api.android.databinding.FragmentSignInBinding
 
 
 /**
@@ -21,7 +21,7 @@ import demo.news.api.android.databinding.FragmentSignUpBinding
 class SignInFragment : Fragment() {
 
     lateinit var mAuth: FirebaseAuth
-    lateinit var binding: FragmentSignUpBinding
+    lateinit var binding: FragmentSignInBinding
 
     lateinit var authListner: AuthListener
 
@@ -60,10 +60,6 @@ class SignInFragment : Fragment() {
     private fun isSubmitReady(): Boolean {
         if (binding.email.text.toString().length == 0) {
             binding.email.error = "Required"
-            return false
-        }
-        if (binding.name.text.toString().length == 0) {
-            binding.name.error = "Required"
             return false
         }
         if (binding.password.text.toString().length == 0) {
