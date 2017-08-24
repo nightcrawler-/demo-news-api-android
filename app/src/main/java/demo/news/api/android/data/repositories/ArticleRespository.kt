@@ -30,6 +30,10 @@ class ArticleRespository {
         this.articlesDao = articlesDao
     }
 
+    fun findArticle(url: String) : LiveData<Article>{
+        return articlesDao.findArticle(url)
+    }
+
     fun loadArticles(options: Map<String, String>): LiveData<Resource<List<Article>>> {
 
         return object : NetworkBoundResource<List<Article>, List<Article>>(executors) {

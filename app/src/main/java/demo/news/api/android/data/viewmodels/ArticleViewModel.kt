@@ -23,4 +23,9 @@ class ArticleViewModel : ViewModel {
         return repository.loadArticles(options)
 
     }
+
+    fun findArticle(url: String): LiveData<Article> {
+        return repository.findArticle(url)
+    }
+
 }

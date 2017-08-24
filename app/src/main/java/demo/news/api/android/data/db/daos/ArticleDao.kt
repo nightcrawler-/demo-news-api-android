@@ -25,4 +25,7 @@ interface ArticleDao {
     @Query("SELECT * FROM articles WHERE source = :source")
     fun get(source: String?): LiveData<List<Article>>
 
+    @Query("SELECT * FROM articles WHERE url = :url")
+    fun findArticle(url: String): LiveData<Article>
+
 }

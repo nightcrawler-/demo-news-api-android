@@ -2,6 +2,7 @@ package com.cafrecode.obviator.util
 
 import android.databinding.BindingAdapter
 import android.graphics.Typeface
+import android.webkit.WebView
 import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
@@ -21,6 +22,11 @@ class BindingAdapters {
         @JvmStatic @BindingAdapter("app:src")
         fun setImage(imageView: ImageView, uri: String?) {
             Picasso.with(imageView.context).load(uri).into(imageView)
+        }
+
+        @JvmStatic @BindingAdapter("app:loadUr")
+        fun loadUrl(webView: WebView, url: String) {
+            webView.loadUrl(url)
         }
 
     }

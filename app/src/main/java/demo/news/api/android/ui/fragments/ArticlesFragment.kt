@@ -4,6 +4,7 @@ package demo.news.api.android.ui.fragments
 import android.arch.lifecycle.LifecycleFragment
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -20,6 +21,7 @@ import demo.news.api.android.R
 import demo.news.api.android.data.viewmodels.ArticleViewModel
 import demo.news.api.android.databinding.FragmentListBinding
 import demo.news.api.android.databinding.ListItemArticleBinding
+import demo.news.api.android.ui.DetailActivity
 import javax.inject.Inject
 
 
@@ -37,6 +39,7 @@ class ArticlesFragment : LifecycleFragment(), Injectable {
     private var adapter: ArticlesAdapter = ArticlesAdapter()
 
     lateinit var mLayoutManager: RecyclerView.LayoutManager
+
 
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
@@ -104,6 +107,14 @@ class ArticlesFragment : LifecycleFragment(), Injectable {
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val item: Article = articles?.get(position)!!
             holder.bind(item)
+            holder.itemView.isClickable = true
+
+            holder.itemView.setOnClickListener({
+                val intent: Intent = Intent(it.context, DetailActivity::class.java)
+                intent.putExtra("url", item.url)
+
+                startActivity(intent)
+            })
         }
 
         override fun getItemCount(): Int {
