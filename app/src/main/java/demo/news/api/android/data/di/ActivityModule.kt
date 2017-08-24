@@ -2,6 +2,7 @@ package com.cafrecode.obviator.data.di
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
+import demo.news.api.android.ui.DetailActivity
 import demo.news.api.android.ui.HomeActivity
 
 /**
@@ -12,5 +13,8 @@ abstract class ActivityModule {
 
     @ContributesAndroidInjector(modules = arrayOf(FragmentBuildersModule::class))
     abstract fun contributeHomeActivity(): HomeActivity
+
+    @ContributesAndroidInjector
+    abstract fun contributeDetailActivity() : DetailActivity
 
 }

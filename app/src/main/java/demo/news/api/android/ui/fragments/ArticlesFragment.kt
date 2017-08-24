@@ -4,6 +4,7 @@ package demo.news.api.android.ui.fragments
 import android.arch.lifecycle.LifecycleFragment
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -36,14 +37,14 @@ class ArticlesFragment : LifecycleFragment(), Injectable {
     lateinit var articleViewModel: ArticleViewModel
     lateinit var binding: FragmentListBinding
 
-    private var adapter: ArticlesAdapter = ArticlesAdapter()
+    private lateinit var adapter: ArticlesAdapter
 
     lateinit var mLayoutManager: RecyclerView.LayoutManager
 
-
-
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+        adapter = ArticlesAdapter(activity)
+
         mLayoutManager = LinearLayoutManager(getActivity())
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_list, container, false)
 
@@ -79,9 +80,16 @@ class ArticlesFragment : LifecycleFragment(), Injectable {
         })
     }
 
-    private class ArticlesAdapter : RecyclerView.Adapter<ArticlesAdapter.ViewHolder>() {
+    private class ArticlesAdapter : RecyclerView.Adapter<ArticlesAdapter.ViewHolder> {
+
+        var mContext: Context
 
         var articles: List<Article>? = null
+
+        constructor(mContext: Context) : super() {
+            this.mContext = mContext
+        }
+
 
         class ViewHolder : RecyclerView.ViewHolder {
             var binding: ListItemArticleBinding
@@ -110,10 +118,9 @@ class ArticlesFragment : LifecycleFragment(), Injectable {
             holder.itemView.isClickable = true
 
             holder.itemView.setOnClickListener({
-                val intent: Intent = Intent(it.context, DetailActivity::class.java)
+                val intent: Intent = Intent(mContext, DetailActivity::class.java)
                 intent.putExtra("url", item.url)
-
-                startActivity(intent)
+                mContext.startActivity(intent)
             })
         }
 

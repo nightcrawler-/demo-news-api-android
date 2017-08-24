@@ -6,32 +6,21 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import com.cafrecode.obviator.data.di.Injectable
 import com.cafrecode.obviator.data.di.ViewModelFactory
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.support.HasSupportFragmentInjector
 import demo.news.api.android.R
 import demo.news.api.android.data.viewmodels.ArticleViewModel
 import demo.news.api.android.databinding.ActivityDetailBinding
 import kotlinx.android.synthetic.main.activity_detail.*
 import javax.inject.Inject
 
-class DetailActivity : AppCompatActivity(), LifecycleRegistryOwner, HasSupportFragmentInjector, Injectable {
+class DetailActivity : AppCompatActivity(), LifecycleRegistryOwner, Injectable {
 
     val lifecycleRegistry = LifecycleRegistry(this)
 
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
-
     override fun getLifecycle(): LifecycleRegistry {
         return lifecycleRegistry
-    }
-
-    override fun supportFragmentInjector(): AndroidInjector<Fragment> {
-        return dispatchingAndroidInjector
     }
 
     @Inject
