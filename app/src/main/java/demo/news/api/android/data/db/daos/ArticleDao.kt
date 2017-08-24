@@ -13,10 +13,10 @@ import com.cafrecode.obviator.data.db.entities.Article
 @Dao
 interface ArticleDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(article: Article?)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(articles: List<Article>?)
 
     @Query("SELECT * FROM articles")
@@ -27,5 +27,8 @@ interface ArticleDao {
 
     @Query("SELECT * FROM articles WHERE url = :url")
     fun findArticle(url: String): LiveData<Article>
+
+    @Query("SELECT * FROM articles")
+    fun listAll(): LiveData<List<Article>>
 
 }

@@ -28,4 +28,7 @@ class ArticleViewModel : ViewModel {
         return repository.findArticle(url)
     }
 
+    fun loadAllArticles(options: Map<String, String>): LiveData<Resource<List<Article>>> {
+        return repository.loadAllArticles(options)
+    }
 }

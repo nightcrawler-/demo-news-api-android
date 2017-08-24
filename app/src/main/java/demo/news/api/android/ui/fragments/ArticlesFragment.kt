@@ -19,6 +19,7 @@ import android.view.ViewGroup
 import com.cafrecode.obviator.data.db.entities.Article
 import com.cafrecode.obviator.data.di.Injectable
 import demo.news.api.android.R
+import demo.news.api.android.data.db.entities.Resource
 import demo.news.api.android.data.viewmodels.ArticleViewModel
 import demo.news.api.android.databinding.FragmentListBinding
 import demo.news.api.android.databinding.ListItemArticleBinding
@@ -67,18 +68,33 @@ class ArticlesFragment : LifecycleFragment(), Injectable {
         options.put("source", arguments.getString("source"))
         options.put("apiKey", getString(R.string.api_key))
 
-        articleViewModel.list(options).observe(this, Observer {
-            Log.i(SourcesFragment.TAG, "fetched articles statu: " + it?.status)
-            Log.i(SourcesFragment.TAG, "fetched articles size : " + it?.data?.size)
-            Log.i(SourcesFragment.TAG, "fetched articles size : " + it?.message)
+        var source = arguments.getString("source")
 
-            binding.resource = it
+        if (source.equals("*")) {//fetch all
+            options.put("source", "bbc-news")//use a default source to avoid invalid request
+            articleViewModel.loadAllArticles(options).observe(this, Observer {
+                updateUi(it)
 
-            if (it != null && it.data != null) {
-                adapter.articles = it.data
-                adapter.notifyDataSetChanged()
-            }
-        })
+            })
+        } else {
+            articleViewModel.list(options).observe(this, Observer {
+                updateUi(it)
+            })
+        }
+
+    }
+
+    private fun updateUi(it: Resource<List<Article>>?) {
+        Log.i(SourcesFragment.TAG, "fetched articles statu: " + it?.status)
+        Log.i(SourcesFragment.TAG, "fetched articles size : " + it?.data?.size)
+        Log.i(SourcesFragment.TAG, "fetched articles size : " + it?.message)
+
+        binding.resource = it
+
+        if (it != null && it.data != null) {
+            adapter.articles = it.data
+            adapter.notifyDataSetChanged()
+        }
     }
 
     private class ArticlesAdapter : RecyclerView.Adapter<ArticlesAdapter.ViewHolder> {

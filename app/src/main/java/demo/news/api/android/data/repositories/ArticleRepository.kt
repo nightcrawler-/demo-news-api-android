@@ -30,8 +30,37 @@ class ArticleRepository {
         this.articlesDao = articlesDao
     }
 
-    fun findArticle(url: String) : LiveData<Article>{
+    fun findArticle(url: String): LiveData<Article> {
         return articlesDao.findArticle(url)
+    }
+
+    fun loadAllArticles(options: Map<String, String>): LiveData<Resource<List<Article>>> {
+        return object : NetworkBoundResource<List<Article>, List<Article>>(executors) {
+            override fun saveCallResult(item: NewsResponse?) {
+
+                if (item != null) {
+                    var articles: ArrayList<Article>? = item?.articles
+                    for (article in articles!!) {
+                        article.source = item.source
+                    }
+                    articlesDao.insert(articles)
+                }
+            }
+
+            override fun shouldFetch(@Nullable data: List<Article>?): Boolean {
+                return data == null || data.isEmpty()
+            }
+
+            override fun loadFromDb(): LiveData<List<Article>> {
+                return articlesDao.listAll()
+            }
+
+            override fun createCall(): LiveData<ApiResponse<NewsResponse>> {
+                return service.listArticles(options)
+            }
+
+        }.asLiveData()
+
     }
 
     fun loadArticles(options: Map<String, String>): LiveData<Resource<List<Article>>> {
